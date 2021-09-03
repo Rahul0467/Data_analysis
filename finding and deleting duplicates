@@ -4,20 +4,15 @@ import pandas as pd
 # Reading the file 
 df = pd.read_csv("purchase_data.csv")
 
-#Finding the number of rows and columns in the dataset
-print(df.shape)
+# Total number of players
+total_players = df["SN"].nunique() 
 
-#There are 780 rows and 7 columns in the dataset
-#Total players = 780
+#total numer of players = 576
 
-# Finding the number of duplicate entries
-print(df.SN.duplicated().sum())
+# Finding the unique number of items
+print(df["Item ID"].nunique())
 
-# There are 204 entries which are repeated user ids
-# Number of Unique Items = 576
-
-#View the rows which are duplicated
-print(df.loc[df.SN.duplicated(), :])
+# The number of unique items = 179
 
 #Average Purchase Price
 print(df.Price.mean())
@@ -31,26 +26,47 @@ print(df.Price.sum())
 # Total Revenue = 2379.77
 
 # Percentage and Count of Male, Female, Other/Non-Disclosed Players
-print(df.Gender.value_counts())
+gender_count = df.groupby("Gender").nunique()["SN"]
+unique_players = df["SN"].nunique()
+print(gender_count/unique_players*100)
 
-# Male                     652 (83.59%)
-# Female                   113 (14.49%)
-# Other / Non-Disclosed     15 (1.92%)
+# Male                     484 (84.03%)
+# Female                   81 (14.49%)
+# Other / Non-Disclosed     11 (1.92%)
 
 # Purchasing Analysis (Gender):
 # Purchase Count
+print(df.groupby("Gender").count())
+
 # Average Purchase Price
-a = df.groupby(["Gender"])
-print(a.describe())
+print(df.groupby("Gender").mean())
 
 # Total Purchase Value
-print(df[["Gender", "Price"]].groupby("Gender").sum())
+total_purchase_value = df.groupby("Gender").sum()
+
+# Average Purchase Total per Person by Gender
+print(gender_count/total_purchase_value["Price"])
 
 # Male -
 # Purchase Count = 652
 # Average Purchase Price = 3.02
 # Total Purchase Value = 1967.64
-# Average Purchase Total per Person by Gender = 
+# Average Purchase Total per Person by Gender = 4.07
+
+
+# Female -
+# Purchase Count = 113
+# Average Purchase Price = 3.20
+# Total Purchase Value = 361.94
+# Average Purchase Total per Person by Gender = 4.47
+
+
+# Other/ Non-Disclosed -
+# Purchase Count = 15
+# Average Purchase Price = 3.35
+# Total Purchase Value = 50.19
+# Average Purchase Total per Person by Gender = 4.56
+
 
 
 
