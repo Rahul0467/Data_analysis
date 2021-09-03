@@ -1,0 +1,57 @@
+# We import pandas
+import pandas as pd
+
+# Reading the file 
+df = pd.read_csv("purchase_data.csv")
+
+#Finding the number of rows and columns in the dataset
+print(df.shape)
+
+#There are 780 rows and 7 columns in the dataset
+#Total players = 780
+
+# Finding the number of duplicate entries
+print(df.SN.duplicated().sum())
+
+# There are 204 entries which are repeated user ids
+# Number of Unique Items = 576
+
+#View the rows which are duplicated
+print(df.loc[df.SN.duplicated(), :])
+
+#Average Purchase Price
+print(df.Price.mean())
+
+# The average purchase price = 3.05
+# Total Number of Purchases = 780
+
+# Total Revenue
+print(df.Price.sum())
+
+# Total Revenue = 2379.77
+
+# Percentage and Count of Male, Female, Other/Non-Disclosed Players
+print(df.Gender.value_counts())
+
+# Male                     652 (83.59%)
+# Female                   113 (14.49%)
+# Other / Non-Disclosed     15 (1.92%)
+
+# Purchasing Analysis (Gender):
+# Purchase Count
+# Average Purchase Price
+a = df.groupby(["Gender"])
+print(a.describe())
+
+# Total Purchase Value
+print(df[["Gender", "Price"]].groupby("Gender").sum())
+
+# Male -
+# Purchase Count = 652
+# Average Purchase Price = 3.02
+# Total Purchase Value = 1967.64
+# Average Purchase Total per Person by Gender = 
+
+
+
+
