@@ -67,7 +67,98 @@ print(gender_count/total_purchase_value["Price"])
 # Total Purchase Value = 50.19
 # Average Purchase Total per Person by Gender = 4.56
 
+# Age Demographics:
 
+-The below each broken into bins of 4 years (i.e. LESS THAN 10 OR 10-14, OR 15-19 ETC)
+age_bins = [0, 9.90, 14.90, 19.90, 24.90, 29.90, 34.90, 39.90, , 44.90, 49.90]
+age_labels = ["<10", "10-14", "15-19", "20-24", "25-29", "30-34", "35-39", "40-44", "45-49"]
+df["Age Category"] = pd.cut(df["Age"], age_bins, labels=age_labels)
+
+# Purchase Count
+print(df.groupby("Age Category").count())
+
+# Average Purchase Price
+print(df.groupby("Age Category").mean())
+
+# Total Purchase Value
+print(df.groupby("Age Category").sum())
+
+# Average Purchase Total per Person by Age Group
+age_group_category = df.groupby("Age Category")["SN"].nunique()
+age_total_purchase_value = df.groupby("Age Category").sum()
+age_avg_pur_per = age_total_purchase_value["Price"]/age_group_category
+print(age_avg_pur_per)
+
+# <10-
+# Purchase Count = 23 
+# Average Purchase Price = 3.35
+# Total Purchase Value = 77.13
+# Average Purchase Total per Person by Age Group = 4.54
+
+# 10-14
+# Purchase Count = 28 
+# Average Purchase Price = 2.96
+# Total Purchase Value = 82.78
+# Average Purchase Total per Person by Age Group = 3.76
+
+# 15-19
+# Purchase Count = 136 
+# Average Purchase Price = 3.04
+# Total Purchase Value = 412.89
+# Average Purchase Total per Person by Age Group = 3.86
+
+# 20-24
+# Purchase Count = 365 
+# Average Purchase Price = 3.05
+# Total Purchase Value = 1114.06
+# Average Purchase Total per Person by Age Group = 4.32
+
+# 25-29
+# Purchase Count = 101 
+# Average Purchase Price = 2.90
+# Total Purchase Value = 293
+# Average Purchase Total per Person by Age Group = 3.81
+
+# 30-34
+# Purchase Count = 73 
+# Average Purchase Price = 2.93
+# Total Purchase Value = 214
+# Average Purchase Total per Person by Age Group = 4.12
+
+# 35-39
+# Purchase Count = 41 
+# Average Purchase Price = 3.60
+# Total Purchase Value = 147.67
+# Average Purchase Total per Person by Age Group = 4.76
+
+# 40-44
+# Purchase Count = 12
+# Average Purchase Price = 3.05
+# Total Purchase Value = 36.54
+# Average Purchase Total per Person by Age Group = 3.32
+
+# 45-49
+# Purchase Count = 1
+# Average Purchase Price = 1.70
+# Total Purchase Value = 1.70
+# Average Purchase Total per Person by Age Group = 1.70
+
+# Top Spenders:
+
+# Identify the the top 5 spenders in the game by total purchase value, then list (in a table):
+
+# SN
+# Purchase Count
+# Average Purchase Price
+# Total Purchase Value
+
+             Purchase Count  Purchase Value  Avg Purchase
+SN                                                       
+Lisosia93                 5           18.96      3.792000
+Idastidru52               4           15.45      3.862500
+Chamjask73                3           13.83      4.610000
+Iral74                    4           13.62      3.405000
+Iskadarya95               3           13.10      4.366667
 
 
 
