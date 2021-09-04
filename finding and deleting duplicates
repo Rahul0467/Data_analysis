@@ -152,6 +152,20 @@ print(age_avg_pur_per)
 # Average Purchase Price
 # Total Purchase Value
 
+purchase_count = df.groupby("SN")["Purchase ID"].count()
+purchase_sum = df.groupby("SN")["Price"].sum()
+purchase_mean = df.groupby("SN")["Price"].mean()
+pop_items = pd.DataFrame(
+    {
+        "Purchase Count": purchase_count,
+        "Total Purchase Value": purchase_sum,
+        "Avg Purchase Value": purchase_mean
+    }
+)
+
+popitem = pop_items.sort_values(["Purchase Count"], ascending=False).head(5)
+print(popitem)
+
              Purchase Count  Purchase Value  Avg Purchase
 SN                                                       
 Lisosia93                 5           18.96      3.792000
@@ -159,6 +173,59 @@ Idastidru52               4           15.45      3.862500
 Chamjask73                3           13.83      4.610000
 Iral74                    4           13.62      3.405000
 Iskadarya95               3           13.10      4.366667
+
+# Most Popular Items:
+
+# Identify the 5 most popular items by purchase count, then list (in a table):
+
+# Item ID
+# Item Name
+# Purchase Count
+# Item Price
+# Total Purchase Value
+
+items = df[["Item ID", "Item Name", "Price"]]
+item_stats = items.groupby(["Item ID", "Item Name"])
+purchase_value = item_stats["Price"].sum()
+purchase_count_item = item_stats["Price"].count()
+item_price = purchase_value/purchase_count_item
+popular_item =pd.DataFrame(
+    {
+        "Purchase Count": purchase_count_item,
+        "Item Price": item_price,
+        "Total Purchase Value": purchase_value
+    }
+)
+
+pop_format = popular_item.sort_values(["Purchase Count"], ascending=False).head()
+print(pop_format)
+
+Item ID	  Item Name	                                      Purchase Count	Item Price	Total Purchase Value
+92	      Final Critic	                                         13	            4.61    	           59.99
+178	      Oathbreaker, Last Hope of the Breaking Storm	         12	            4.23	               50.76
+145	      Fiery Glass Crusader	                                 9	            4.58	               41.22
+132	      Persuasion	                                           9	            3.22	               28.99
+108	      Extraction, Quickblade Of Trembling Hands	             9	            3.53	               31.77
+
+# Most Profitable Items:
+
+# Identify the 5 most profitable items by total purchase value, then list (in a table):
+
+# Item ID
+# Item Name
+# Purchase Count
+# Item Price
+# Total Purchase Value
+
+pop_format = popular_item.sort_values(["Total Purchase Value"], ascending=False).head()
+print(pop_format)
+
+Item ID	  Item Name	                                      Purchase Count	Item Price	Total Purchase Value
+92	      Final Critic	                                              13	      4.61	               59.99
+178	      Oathbreaker, Last Hope of the Breaking Storm	              12	      4.23	               50.76
+82	      Nirvana	                                                     9	      4.90	               44.10
+145	      Fiery Glass Crusader	                                       9	      4.58	               41.22
+103	      Singed Scalpel	                                             8	      4.35	               34.80
 
 
 
